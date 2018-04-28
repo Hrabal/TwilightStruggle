@@ -1,0 +1,7 @@
+flask==1.0
+tem-py
+Flask-Login==0.4.0
+Flask-SQLAlchemy==2.2
+psycopg2-binary
+zappa==0.45.1
+Flask-S3==0.3.3
