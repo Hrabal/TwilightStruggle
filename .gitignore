@@ -100,5 +100,5 @@ ENV/
 # mypy
 .mypy_cache/
 
-env_exports.sh 
+env_exports.txt
 ts/
