@@ -78,7 +78,7 @@ class LoginPage(base.BasePage):
         )
 
     def wrong(self, what):
-        self.content.form.prepend(
+        self.form.prepend(
             tags.Div(klass='alert alert-danger')('Wrong ', what.title())
         )
         return self
