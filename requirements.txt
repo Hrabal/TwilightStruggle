@@ -6,3 +6,5 @@ Flask-SQLAlchemy==2.2
 psycopg2-binary
 zappa==0.45.1
 Flask-S3==0.3.3
+sqlalchemy-migrate==0.10.0
+markdown2
