@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 import locale
-
 from flask import Flask
-from flask_s3 import FlaskS3
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
@@ -18,10 +16,16 @@ login_manager.init_app(app)
 
 db = SQLAlchemy(app)
 
-s3 = FlaskS3(app)
+if app.config.get('FLASKS3_ACTIVE'):
+    from flask_s3 import FlaskS3, url_for
+    s3 = FlaskS3(app)
+    url_for = url_for
+else:
+    from flask import url_for
+    url_for = url_for
+
 
 logging.basicConfig()
 logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
-import models
 import controllers
