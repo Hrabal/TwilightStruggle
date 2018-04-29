@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'lietz_lindauhamburgregular';
+    src: url('../fonts/lietzlindauhamburg-webfont.woff2') format('woff2'),
+         url('../fonts/lietzlindauhamburg-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -9,7 +18,7 @@ body {
   margin-bottom: 60px;
 }
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
@@ -36,4 +45,21 @@ body > .container {
 
 code {
   font-size: 80%;
+}
+
+body {
+  background: url('../img/background.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+footer, nav {
+  opacity: 0.95;
+  font-family: 'lietz_lindauhamburgregular';
+}
+
+.main-window {
+  background-color: #f5f5f5;
 }

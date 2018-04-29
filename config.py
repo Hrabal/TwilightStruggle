@@ -3,6 +3,7 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 SECRET_KEY = os.getenv('SECRET_KEY')
+SITE_TITLE = 'Twilight Struggle'
 
 # DB
 RDS_TYP = os.getenv('RDS_TYP')
