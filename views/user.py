@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
+import pycountry
+from flask import g
 import tempy.tags as tags
+from babel.dates import format_date
+from datetime import date
+from dateutil.relativedelta import relativedelta
 
+from app import url_for
 import views.base as base
 
 
@@ -161,5 +167,48 @@ class SignupPage(UserPage):
                         tags.Hr(klass='omb_hrOr'),
                     )
                 ),
+            )
+        )
+
+
+class Profile(base.BasePage):
+    def init(self):
+        self.content(
+            tags.Div(klass='row')(
+                tags.Div(klass='col-xs-12 col-sm-3')(
+                    tags.Img(src=url_for('static', filename=f'img/profile_pics/{g.user.pic}'),
+                             klass='profile-user-pic')
+                ),
+                tags.Div(klass='col-xs-12 col-sm-3')(
+                    tags.Div(klass='container')(
+                        tags.Div(klass='row')(
+                            tags.Div(klass='col-sm-1')(tags.H1()(g.user.username))
+                        ),
+                        tags.Div(klass='row')(
+                            tags.Div(klass='col-sm-1')('e-mail:'),
+                            tags.Div(klass='col-sm')(g.user.email),
+                        ),
+                        tags.Div(klass='row')(
+                            tags.Div(klass='col-sm-1')('Country:'),
+                            tags.Div(klass='col-sm')(
+                                tags.Span(klass=f'flag-icon flag-icon-{g.user.country}'), ' ',
+                                pycountry.countries.get(alpha_2=g.user.country.upper()).official_name
+                            )
+                        ),
+                        tags.Div(klass='row')(
+                            tags.Div(klass='col-sm-1')('Birthday:'),
+                            tags.Div(klass='col-sm')(format_date(g.user.birth, format='long', locale=g.user.country)),
+                        ),
+                        tags.Div(klass='row')(
+                            tags.Div(klass='col-sm-1')('Age:'),
+                            tags.Div(klass='col-sm')(relativedelta(date.today(), g.user.birth).years),
+                        ),
+                    )
+                )
+            ),
+            tags.Div(klass='row')(
+                tags.Div(klass='col-xs-2 col-sm-1')(
+                    tags.H2()('Stats')
+                )
             )
         )

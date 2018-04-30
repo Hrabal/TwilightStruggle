@@ -130,3 +130,9 @@ footer, nav {
     margin-top:10px;
   }
 }
+
+.profile-user-pic {
+  width: 100%;
+  padding:1px;
+  border:1px solid #021a40;
+}

@@ -16,8 +16,9 @@ class User(db.Model, Dictable):
     password_hash = db.Column(db.String(300),
                               nullable=False)
     email = db.Column(db.String(300))
-    pic = db.Column(db.String(300))
+    pic = db.Column(db.String(64), default='anonymous.jpg')
     country = db.Column(db.String(2))
+    birth = db.Column(db.Date())
 
     def __init__(self, username, password, email):
         self.username = username

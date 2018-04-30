@@ -10,3 +10,4 @@ Flask-S3==0.3.3
 sqlalchemy-migrate==0.10.0
 markdown2
 pycountry
+babel
