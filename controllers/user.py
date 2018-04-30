@@ -4,9 +4,9 @@ from flask_login import current_user, login_user, logout_user, login_required
 
 from app import app, login_manager
 from models.user import User
-from views.user import LoginPage #, ManageUsers, UserEdit
+from views.user import LoginPage, SignupPage
 
-#from api.user import save_user, delete_user
+from actions.user import save_user
 
 
 @login_manager.user_loader
@@ -42,6 +42,16 @@ def login():
 def logout():
     logout_user()
     return redirect(request.referrer)
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        user_dict = request.form.to_dict()
+        user = save_user(user_dict)
+        login_user(user, remember=True)
+        return redirect('/')
+    return SignupPage().render()
 
 
 @app.route('/manage_users')

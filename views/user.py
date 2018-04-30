@@ -4,7 +4,13 @@ import tempy.tags as tags
 import views.base as base
 
 
-class LoginPage(base.BasePage):
+class UserPage(base.BasePage):
+    def set_referrer(self, ref):
+        self.form.referrer.attr(value=ref)
+        return self
+
+
+class LoginPage(UserPage):
 
     def init(self):
         self.form = tags.Form(action="/login",
@@ -83,11 +89,56 @@ class LoginPage(base.BasePage):
         )
         return self
 
-    def set_referrer(self, ref):
-        self.form.referrer.attr(value=ref)
-        return self
-
     def set_form(self, form):
         self.form.username.attr(value=form['username'])
         self.form.referrer.attr(value=form['referrer'])
         return self
+
+
+class SignupPage(UserPage):
+
+    def init(self):
+        self.form = tags.Form(action="/signup",
+                              method='post',
+                              klass='omb_loginForm')(
+            email=tags.Input('required',
+                             typ="email",
+                             name="email",
+                             klass='form-control',
+                             placeholder='Email'),
+            l_email=tags.Label(_for='email',
+                               klass='sr-only')('Email'),
+            username=tags.Input('required', 'autofocus',
+                                typ="text",
+                                name="username",
+                                klass='form-control',
+                                placeholder='Username'),
+            l_user=tags.Label(_for='username',
+                              klass='sr-only')('Username'),
+            password=tags.Input('required',
+                                typ="password",
+                                name="password",
+                                klass='form-control',
+                                placeholder='Password'),
+            l_pwd=tags.Label(_for='password',
+                             klass='sr-only')('Password'),
+            lb=tags.Button(typ="submit",
+                           klass='btn btn-lg btn-primary btn-block')('Sign Up'),
+        )
+        self.content(
+            tags.Div(klass='omb_login')(
+                tags.H3(klass='omb_authTitle')(
+                    'Sign Up'
+                ),
+                tags.Div(klass='row omb_row-sm-offset-3')(
+                    tags.Div(klass='col-xs-12 col-sm-6')(
+                        self.form
+                    )
+                ),
+                tags.Div(klass='row omb_row-sm-offset-3')(
+                    tags.Div(klass='col-xs-12 col-sm-6')(
+                        ''
+                    )
+                ),
+            )
+        )
