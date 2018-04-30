@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-import datetime
+from sqlalchemy.orm import relationship
 from passlib.hash import bcrypt
 
 from app import db
 from models.dbtools import Dictable
+from models.game import GamePlayers
 
 
 class User(db.Model, Dictable):
@@ -23,6 +24,7 @@ class User(db.Model, Dictable):
     tagline = db.Column(db.String(255))
     joined = db.Column(db.Date())
     level = db.Column(db.Integer(), default=1)
+    games = relationship('GamePlayers', backref='player', primaryjoin=user_id == GamePlayers.user_id)
 
     def __init__(self, username, password, email):
         self.username = username
