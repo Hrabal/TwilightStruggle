@@ -227,4 +227,11 @@ class Profile(base.BasePage):
             tags.Div(klass='row')(
                 tags.Div(klass='col-sm-2')('Won ', sum(1 for g in g.user.games if g.score == 20), ' games.'),
             ),
+            tags.Div(klass='row')(
+                tags.Div(klass='col-sm-12')(
+                    'Played as ',
+                    'USA ', tags.Span(klass='flag-icon flag-icon-us'), sum(1 for g in g.user.games if g.faction == 'us'),
+                    ',URRS ', tags.Span(klass='flag-icon flag-icon-us'), sum(1 for g in g.user.games if g.faction == 'su')
+                ),
+            ),
         )

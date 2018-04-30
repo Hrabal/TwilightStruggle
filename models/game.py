@@ -11,6 +11,7 @@ class GamePlayers(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), primary_key=True)
     joined_game = db.Column(db.DateTime)
     score = db.Column(db.Integer)
+    faction = db.Column(db.String(2))
 
 
 class Game(db.Model, Dictable):
