@@ -217,5 +217,14 @@ class Profile(base.BasePage):
                 tags.Div(klass='col-xs-2 col-sm-1')(
                     tags.H2()('Stats')
                 )
-            )
+            ),
+            tags.Div(klass='row')(
+                tags.Div(klass='col-sm-2')('Played ', len(g.user.games), ' games,')
+            ),
+            tags.Div(klass='row')(
+                tags.Div(klass='col-sm-2')('Currently in ', sum(1 for g in g.user.games if not g.game.ended), ' games.')
+            ),
+            tags.Div(klass='row')(
+                tags.Div(klass='col-sm-2')('Won ', sum(1 for g in g.user.games if g.score == 20), ' games.'),
+            ),
         )

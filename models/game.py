@@ -21,3 +21,4 @@ class Game(db.Model, Dictable):
     order = db.Column(db.Float(), nullable=False, default=0)
     menu = db.Column(db.String(10), default='MAIN')
     players = relationship('GamePlayers', backref='game', primaryjoin=game_id == GamePlayers.game_id)
+    ended = db.Column(db.Boolean(), nullable=False, default=False)
