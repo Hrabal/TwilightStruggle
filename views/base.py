@@ -34,13 +34,12 @@ class NavBar(tags.Nav):
         ]
         self.menu(tags.Ul(klass='nav navbar-nav')(menu_items))
         login_link = [[('/login', 'Login'), ('/signup', 'Sign up')], [('/logout', 'Logout'), ]][g.user.is_authenticated]
-        user_tags = [
-            '',
-            [
+        user_tags = []
+        if g.user.is_authenticated:
+            user_tags = [
                 tags.Li(klass='active')(tags.A()('Profile')),
                 tags.Li()(tags.A()(g.user.username, ' ', tags.Span(klass=f'flag-icon flag-icon-{g.user.country}'))),
             ]
-        ][g.user.is_authenticated]
         self.menu(
             tags.Ul(klass='nav navbar-nav navbar-right')(
                 user_tags,
