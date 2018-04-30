@@ -32,9 +32,21 @@ class NavBar(tags.Nav):
             tags.Li()(tags.A()('Games')),
             tags.Li()(tags.A(href='/rules')('Rules')),
         ]
-        if g.user.is_authenticated:
-            menu_items.append(tags.Li(klass='active')(tags.A()('Profile')))
         self.menu(tags.Ul(klass='nav navbar-nav')(menu_items))
+        login_link = [[('/login', 'Login'), ('/signup', 'Sign up')], [('/logout', 'Logout'), ]][g.user.is_authenticated]
+        user_tags = [
+            '',
+            [
+                tags.Li(klass='active')(tags.A()('Profile')),
+                tags.Li()(tags.A()(g.user.username, ' ', tags.Span(klass=f'flag-icon flag-icon-{g.user.country}'))),
+            ]
+        ][g.user.is_authenticated]
+        self.menu(
+            tags.Ul(klass='nav navbar-nav navbar-right')(
+                user_tags,
+                (tags.Li()(tags.A(href=link[0])(link[1])) for link in login_link)
+            )
+        )
         return self
 
 
@@ -63,13 +75,13 @@ class BasePage(widg.TempyPage):
     def css(self):
         return [
             tags.Link(rel="stylesheet", href="http://getbootstrap.com/docs/3.3/dist/css/bootstrap.min.css"),
+            tags.Link(rel="stylesheet", href=url_for('static', filename='css/flag-icon-css/css/flag-icon.min.css')),
             tags.Link(href=url_for('static', filename='css/style.css'),
                       rel="stylesheet",
                       typ="text/css"),
         ]
 
     def init(self):
-        login_link = [('/login', 'Login'), ('/logout', 'Logout')][g.user.is_authenticated]
         self.head(self.css(), self.js())
         self.head(tags.Meta(name="viewport", content="width=device-width, initial-scale=1"))
         self.head.title(self.page_title)
@@ -80,8 +92,7 @@ class BasePage(widg.TempyPage):
                 tags.P(klass='text-muted')(
                     "created by Federico Cerchiari with ",
                     tags.Img(src=url_for('static', filename='img/brain.png'), height="17px"),
-                    ", Python and TemPy. ",
-                    tags.A(href=login_link[0])(login_link[1])
+                    ", Python and TemPy. "
                 ),
             )
         )

@@ -128,7 +128,28 @@ class SignupPage(UserPage):
         self.content(
             tags.Div(klass='omb_login')(
                 tags.H3(klass='omb_authTitle')(
-                    'Sign Up'
+                    'Sign Up or ', tags.A(href='/login')('Login')
+                ),
+                tags.Div(klass='row omb_row-sm-offset-3 omb_socialButtons')(
+                    tags.Div(klass='col-xs-4 col-sm-3')(
+                        tags.A(href='#', klass='btn btn-lg btn-block omb_btn-facebook')(
+                            tags.I(klass='fas fa-facebook visible-xs'),
+                            tags.Span(klass='hidden-xs')('Facebook')
+                        )
+                    ),
+                    tags.Div(klass='col-xs-4 col-sm-3')(
+                        tags.A(href='#', klass='btn btn-lg btn-block omb_btn-google')(
+                            tags.I(klass='fas fa-google-plus visible-xs'),
+                            tags.Span(klass='hidden-xs')('Google')
+                        )
+                    )
+                ),
+                tags.Div(klass='row omb_row-sm-offset-3 omb_loginOr')(
+                    tags.Div(klass='col-xs-12 col-sm-6')(
+                        tags.Hr(klass='omb_hrOr'),
+                        tags.Span(klass='omb_spanOr')('or')
+                    )
+
                 ),
                 tags.Div(klass='row omb_row-sm-offset-3')(
                     tags.Div(klass='col-xs-12 col-sm-6')(
@@ -137,7 +158,7 @@ class SignupPage(UserPage):
                 ),
                 tags.Div(klass='row omb_row-sm-offset-3')(
                     tags.Div(klass='col-xs-12 col-sm-6')(
-                        ''
+                        tags.Hr(klass='omb_hrOr'),
                     )
                 ),
             )

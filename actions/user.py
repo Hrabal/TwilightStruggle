@@ -10,6 +10,7 @@ def save_user(user_dict):
         user.username = user_dict['username']
         user.password = user_dict['password']
         user.email = user_dict['email']
+        user.country = user_dict.get('country', '').lower()
     else:
         user = User(**user_dict)
     db.session.add(user)

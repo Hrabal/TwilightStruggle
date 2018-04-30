@@ -29,7 +29,7 @@ def login():
             if user.validate_password(form_password):
                 login_user(user, remember=True)
                 app.logger.debug('Logged in user %s', user.username)
-                return redirect(request.form['referrer'])
+                return redirect('/')
             else:
                 login_page.set_form(request.form)
                 return login_page.wrong('password').render()
