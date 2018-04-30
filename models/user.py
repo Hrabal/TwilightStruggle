@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 from passlib.hash import bcrypt
 
 from app import db
@@ -19,6 +20,9 @@ class User(db.Model, Dictable):
     pic = db.Column(db.String(64), default='anonymous.jpg')
     country = db.Column(db.String(2))
     birth = db.Column(db.Date())
+    tagline = db.Column(db.String(255))
+    joined = db.Column(db.Date())
+    level = db.Column(db.Integer(), default=1)
 
     def __init__(self, username, password, email):
         self.username = username

@@ -182,10 +182,17 @@ class Profile(base.BasePage):
                 tags.Div(klass='col-xs-12 col-sm-3')(
                     tags.Div(klass='container')(
                         tags.Div(klass='row')(
-                            tags.Div(klass='col-sm-1')(tags.H1()(g.user.username))
+                            tags.Div(klass='col-sm')(tags.H1()(g.user.username, f' - Level {g.user.level}')),
                         ),
                         tags.Div(klass='row')(
-                            tags.Div(klass='col-sm-1')('e-mail:'),
+                            tags.Div(klass='col-sm')(tags.H2()(g.user.tagline)),
+                        ),
+                        tags.Div(klass='row')(
+                            tags.Div(klass='col-sm-1')('Joined:'),
+                            tags.Div(klass='col-sm')(format_date(g.user.joined, format='short', locale=g.user.country)),
+                        ),
+                        tags.Div(klass='row')(
+                            tags.Div(klass='col-sm-1')('E-mail:'),
                             tags.Div(klass='col-sm')(g.user.email),
                         ),
                         tags.Div(klass='row')(
