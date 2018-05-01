@@ -50,14 +50,14 @@ class LoginPage(UserPage):
                 tags.Div(klass='row omb_row-sm-offset-3 omb_socialButtons')(
                     tags.Div(klass='col-xs-4 col-sm-3')(
                         tags.A(href='#', klass='btn btn-lg btn-block omb_btn-facebook')(
-                            tags.I(klass='fas fa-facebook visible-xs'),
-                            tags.Span(klass='hidden-xs')('Facebook')
+                            tags.I(klass='fab fa-facebook visible-xs'),
+                            tags.Span(klass='hidden-xs')(' Facebook')
                         )
                     ),
                     tags.Div(klass='col-xs-4 col-sm-3')(
                         tags.A(href='#', klass='btn btn-lg btn-block omb_btn-google')(
-                            tags.I(klass='fas fa-google-plus visible-xs'),
-                            tags.Span(klass='hidden-xs')('Google')
+                            tags.I(klass='fab fa-google-plus visible-xs'),
+                            tags.Span(klass='hidden-xs')(' Google')
                         )
                     )
                 ),
@@ -139,14 +139,14 @@ class SignupPage(UserPage):
                 tags.Div(klass='row omb_row-sm-offset-3 omb_socialButtons')(
                     tags.Div(klass='col-xs-4 col-sm-3')(
                         tags.A(href='#', klass='btn btn-lg btn-block omb_btn-facebook')(
-                            tags.I(klass='fas fa-facebook visible-xs'),
-                            tags.Span(klass='hidden-xs')('Facebook')
+                            tags.I(klass='fab fa-facebook visible-xs'),
+                            tags.Span(klass='hidden-xs')(' Facebook')
                         )
                     ),
                     tags.Div(klass='col-xs-4 col-sm-3')(
                         tags.A(href='#', klass='btn btn-lg btn-block omb_btn-google')(
-                            tags.I(klass='fas fa-google-plus visible-xs'),
-                            tags.Span(klass='hidden-xs')('Google')
+                            tags.I(klass='fab fa-google-plus visible-xs'),
+                            tags.Span(klass='hidden-xs')(' Google')
                         )
                     )
                 ),
@@ -175,63 +175,85 @@ class Profile(base.BasePage):
     def init(self):
         self.content(
             tags.Div(klass='row')(
-                tags.Div(klass='col-xs-12 col-sm-3')(
+                tags.Div(klass='col-sm-12 col-lg-3')(
                     tags.Img(src=url_for('static', filename=f'img/profile_pics/{g.user.pic}'),
                              klass='profile-user-pic')
                 ),
-                tags.Div(klass='col-xs-12 col-sm-3')(
+                tags.Div(klass='col')(
                     tags.Div(klass='container')(
                         tags.Div(klass='row')(
-                            tags.Div(klass='col-sm')(tags.H1()(g.user.username, f' - Level {g.user.level}')),
+                            tags.Div(klass='col')(tags.H1()(g.user.username, f' - Level {g.user.level}')),
                         ),
                         tags.Div(klass='row')(
-                            tags.Div(klass='col-sm')(tags.H2()(g.user.tagline)),
+                            tags.Div(klass='col')(tags.H2()(g.user.tagline)),
                         ),
                         tags.Div(klass='row')(
-                            tags.Div(klass='col-sm-1')('Joined:'),
-                            tags.Div(klass='col-sm')(format_date(g.user.joined, format='short', locale=g.user.country)),
+                            tags.Div(klass='col-12 col-sm-2')('Joined:'),
+                            tags.Div(klass='col')(format_date(g.user.joined, format='short', locale=g.user.country)),
                         ),
                         tags.Div(klass='row')(
-                            tags.Div(klass='col-sm-1')('E-mail:'),
-                            tags.Div(klass='col-sm')(g.user.email),
+                            tags.Div(klass='col-12 col-sm-2')('E-mail:'),
+                            tags.Div(klass='col')(g.user.email),
                         ),
                         tags.Div(klass='row')(
-                            tags.Div(klass='col-sm-1')('Country:'),
-                            tags.Div(klass='col-sm')(
+                            tags.Div(klass='col-12 col-sm-2')('Country:'),
+                            tags.Div(klass='col')(
                                 tags.Span(klass=f'flag-icon flag-icon-{g.user.country}'), ' ',
                                 pycountry.countries.get(alpha_2=g.user.country.upper()).official_name
                             )
                         ),
                         tags.Div(klass='row')(
-                            tags.Div(klass='col-sm-1')('Birthday:'),
-                            tags.Div(klass='col-sm')(format_date(g.user.birth, format='long', locale=g.user.country)),
+                            tags.Div(klass='col-12 col-sm-2')('Birthday:'),
+                            tags.Div(klass='col')(format_date(g.user.birth, format='long', locale=g.user.country)),
                         ),
                         tags.Div(klass='row')(
-                            tags.Div(klass='col-sm-1')('Age:'),
-                            tags.Div(klass='col-sm')(relativedelta(date.today(), g.user.birth).years),
+                            tags.Div(klass='col-12 col-sm-2')('Age:'),
+                            tags.Div(klass='col')(relativedelta(date.today(), g.user.birth).years),
                         ),
                     )
                 )
             ),
             tags.Div(klass='row')(
-                tags.Div(klass='col-xs-2 col-sm-1')(
+                tags.Div(klass='col')(
                     tags.H2()('Stats')
                 )
             ),
+
             tags.Div(klass='row')(
-                tags.Div(klass='col-sm-2')('Played ', len(g.user.games), ' games,')
-            ),
-            tags.Div(klass='row')(
-                tags.Div(klass='col-sm-2')('Currently in ', sum(1 for g in g.user.games if not g.game.ended), ' games.')
-            ),
-            tags.Div(klass='row')(
-                tags.Div(klass='col-sm-2')('Won ', sum(1 for g in g.user.games if g.score == 20), ' games.'),
-            ),
-            tags.Div(klass='row')(
-                tags.Div(klass='col-sm-12')(
-                    'Played as ',
-                    'USA ', tags.Span(klass='flag-icon flag-icon-us'), sum(1 for g in g.user.games if g.faction == 'us'),
-                    ',URRS ', tags.Span(klass='flag-icon flag-icon-us'), sum(1 for g in g.user.games if g.faction == 'su')
+                tags.Div(klass='col-12 col-lg-4')(
+                    tags.Div(klass='container')(
+                        tags.Div(klass='row')(
+                            tags.Div(klass='col')(
+                                tags.H4()('Played ', len(g.user.games), ' games')
+                            )
+                        ),
+                        tags.Div(klass='row')(
+                            tags.Div(klass='col')(
+                                tags.H4()(
+                                    tags.Span(klass='flag-icon flag-icon-us'), ' ',
+                                    sum(1 for g in g.user.games if g.faction == 'us')
+                                )
+                            ),
+                            tags.Div(klass='col')(
+                                tags.H4()(
+                                    tags.Span(klass='flag-icon flag-icon-su'), ' ',
+                                    sum(1 for g in g.user.games if g.faction == 'su')
+                                )
+                            )
+                        ),
+                        tags.Div(klass='row')(
+                            tags.Div(klass='col')(
+                                tags.H4()('Currently in ', sum(1 for g in g.user.games if not g.game.ended), ' games.')
+                            )
+                        ),
+                        tags.Div(klass='row')(
+                            tags.Div(klass='col')(
+                                tags.H4()(sum(1 for g in g.user.games if g.score == 20), ' games won.')
+                            )
+                        ),
+                    )
                 ),
-            ),
+                tags.Div(klass='col-12 col-lg-4')(),
+                tags.Div(klass='col-12 col-lg-4')()
+            )
         )
