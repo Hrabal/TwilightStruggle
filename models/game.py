@@ -9,17 +9,17 @@ class GamePlayers(db.Model):
     __tablename__ = 'game_players'
     game_id = db.Column(db.Integer, db.ForeignKey('game.game_id'), primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), primary_key=True)
-    joined_game = db.Column(db.DateTime)
     score = db.Column(db.Integer)
+    space = db.Column(db.Integer)
     faction = db.Column(db.String(2))
 
 
 class Game(db.Model, Dictable):
     game_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(64), index=True, unique=True, nullable=False)
-    link = db.Column(db.String(300), nullable=False)
-    active = db.Column(db.Boolean(), nullable=False, default=True)
-    order = db.Column(db.Float(), nullable=False, default=0)
-    menu = db.Column(db.String(10), default='MAIN')
+    started = db.Column(db.DateTime)
+    ended = db.Column(db.DateTime)
     players = relationship('GamePlayers', backref='game', primaryjoin=game_id == GamePlayers.game_id)
-    ended = db.Column(db.Boolean(), nullable=False, default=False)
+    turn = db.Column(db.Integer)
+    round = db.Column(db.Integer)
+    defcon = db.Column(db.Integer)
+    req_ops = db.Column(db.Integer)
